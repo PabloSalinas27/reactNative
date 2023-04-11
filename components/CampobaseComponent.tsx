@@ -1,44 +1,52 @@
 import React, { Component } from 'react';
+import Constants from 'expo-constants';
 import Calendario from './CalendarioComponent';
-import { EXCURSIONES } from './excursiones';
 import DetalleExcursion from './DetalleExcursionComponent';
-import { View } from 'react-native';
+import { View , Platform} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-interface Excursion {
-    id: number;
-    nombre: string;
-    imagen: string;
-    destacado: boolean;
-    descripcion: string;
-  }
-interface CampobaseState {
-    excursiones: Excursion[];
-    seleccionExcursion: number | null;
+const Stack = createNativeStackNavigator();
+
+function CalendarioNavegador() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Calendario"
+      //headerMode="float"
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: '#015afc' },
+        headerTitleStyle: { color: '#fff' },
+      }}
+    >
+      <Stack.Screen
+        name="Calendario"
+        component={Calendario}
+        options={{
+          title: 'Calendario Gaztaroa',
+        }}
+      />
+      <Stack.Screen
+        name="DetalleExcursion"
+        component={DetalleExcursion}
+        options={{
+          title: 'Detalle Excursión',
+        }}
+      />
+    </Stack.Navigator>
+  );
 }
 
-class Campobase extends Component<{}, CampobaseState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            excursiones: EXCURSIONES,
-            seleccionExcursion: null
-        };
-    }
-
-    onSeleccionExcursion = (excursionId: number) => {
-        this.setState({ seleccionExcursion: excursionId });
-    }
-
-    render() {
-        const excursionSeleccionada = this.state.excursiones.find((excursion) => excursion.id === this.state.seleccionExcursion);
-
-        return (
-            <View>
-                {excursionSeleccionada && <DetalleExcursion excursion={excursionSeleccionada} />}
-                <Calendario excursiones={this.state.excursiones} onPress={this.onSeleccionExcursion} />
-            </View>
-        );
-    }
+class Campobase extends Component {
+  render() {
+     return (
+      <NavigationContainer>
+        <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
+          <CalendarioNavegador />
+        </View>
+      </NavigationContainer>      
+  );
+  }
 }
 
 export default Campobase;

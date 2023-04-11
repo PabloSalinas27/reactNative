@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import { Text, View } from 'react-native';
 import { Card , CardProps} from 'react-native-elements';
-
+import { EXCURSIONES } from './comun/excursiones';
 
 
 interface Excursion {
@@ -12,41 +12,61 @@ interface Excursion {
     descripcion: string;
 }
 
-interface DetalleExcursionProps {
-    excursion: Excursion | null;
+interface RenderExcursionProps {
+  excursion: Excursion | null;
 }
 
 interface CustomCardProps extends CardProps {
-    //title?: string;
-    //image?: { uri: string },
 }
 
-function RenderExcursion(props: DetalleExcursionProps) {
-    const { excursion } = props;
-    
-    if (excursion != null) {
-        const cardProps: CustomCardProps = {
-            containerStyle: { margin: 0 },
-            //title: excursion.nombre,
-            //image:{ uri: './imagenes/40Años.png'}
-                
-              
-        };
-        return(
-            <Card {...cardProps}>
-                <Card.Title>{excursion.nombre}</Card.Title>
-                <Card.Image source={require('./imagenes/40Años.png')}></Card.Image>
-                <Text style={{ margin: 20 }}>{excursion.descripcion}</Text>
-                
-            </Card>
-        );
-    }
-    else {
-        return(<View></View>);
-    }
+function RenderExcursion(props: RenderExcursionProps) {
+  const { excursion } = props;
+  const cardProps: CustomCardProps = {
+    containerStyle: { margin: 0 },  
+    };
+  if (excursion !== null) {
+    return (
+        
+        <Card {...cardProps}>
+            <Card.Title>{excursion.nombre}</Card.Title>
+            <Card.Image source={require('./imagenes/40Años.png')}></Card.Image>
+            <Text style={{ margin: 20 }}>{excursion.descripcion}</Text>
+        
+        </Card>
+    );
+  } else {
+    return <View />;
+  }
 }
 
-function DetalleExcursion(props) {
-    return(<RenderExcursion excursion={props.excursion} />);
+interface DetalleExcursionProps {
+  route: {
+    params: {
+      excursionId: number;
+    };
+  };
 }
+
+interface DetalleExcursionState {
+  excursiones: Excursion[];
+}
+
+class DetalleExcursion extends Component<   DetalleExcursionProps,  DetalleExcursionState > {
+  constructor(props: DetalleExcursionProps) {
+    super(props);
+    this.state = {
+      excursiones: EXCURSIONES,
+    };
+  }
+
+  render() {
+    const { excursionId } = this.props.route.params;
+    return (
+      <RenderExcursion
+        excursion={this.state.excursiones[excursionId]}
+      />
+    );
+  }
+}
+
 export default DetalleExcursion;
