@@ -9,6 +9,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './HomeComponent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+//practica 6
+import Contacto from './ContactoComponent'
+import Quienes from './QuienesComponent'
+
 
 const Stack = createNativeStackNavigator(); //practica 4
 const Drawer = createDrawerNavigator(); //practica 5
@@ -65,6 +69,51 @@ function HomeNavegador() {
     </Stack.Navigator>
   );
 }
+
+////practica 6
+function ContactoNavegador(){
+  return (
+    <Stack.Navigator
+      initialRouteName="Contacto"
+      screenOptions={{
+        //headerMode: 'screen',
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: '#015afc' },
+        headerTitleStyle: { color: '#fff' },
+      }}
+    >
+      <Stack.Screen
+       name="Etxea"
+       component = {Contacto}
+       options={{
+        title: 'Contacto',
+      }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function QuienesNavegador(){
+  return (
+    <Stack.Navigator
+      initialRouteName="Contacto"
+      screenOptions={{
+        //headerMode: 'screen',
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: '#015afc' },
+        headerTitleStyle: { color: '#fff' },
+      }}
+    >
+      <Stack.Screen
+       name="Etxea"
+       component = {Quienes}
+       options={{
+        title: 'Quienes somos',
+      }}
+      />
+    </Stack.Navigator>
+  );
+}
 function DrawerNavegador() {
   return (
     <Drawer.Navigator
@@ -76,14 +125,19 @@ function DrawerNavegador() {
       },
     }}
     >
+    <Drawer.Screen name="Quienes somos" component={QuienesNavegador} />  
     <Drawer.Screen name="Home" component={HomeNavegador} />
     <Drawer.Screen name="Calendario" component={CalendarioNavegador} />
+    <Drawer.Screen name="Contacto" component={ContactoNavegador} />
     </Drawer.Navigator>
   );
 }
 
 
 /////////////////////////////////////
+
+
+
 
 class Campobase extends Component {
   render() {
