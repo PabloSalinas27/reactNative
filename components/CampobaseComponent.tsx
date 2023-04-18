@@ -172,8 +172,29 @@ function DrawerNavegador() {
     >
       <Drawer.Screen name="Campo base" component={HomeNavegador} 
         options={{ 
-          drawerIcon: ({ tintColor}) => ( 
-            <Icon name='home' type='font-awesome' size={24} color={tintColor} /> 
+          drawerIcon: ({ color}) => ( 
+            <Icon name='home' type='font-awesome' size={24} color={color} /> 
+          ) 
+        }}
+      />
+      <Drawer.Screen name="Quienes somos" component={QuienesNavegador} 
+        options={{ 
+          drawerIcon: ({ color}) => ( 
+            <Icon name='info-circle' type='font-awesome' size={24} color={color} /> 
+          ) 
+        }}
+      />
+      <Drawer.Screen name="Calendario" component={CalendarioNavegador} 
+        options={{ 
+          drawerIcon: ({ color}) => ( 
+            <Icon name='calendar' type='font-awesome' size={24} color={color} /> 
+          ) 
+        }}
+      />
+      <Drawer.Screen name="Contacto" component={ContactoNavegador} 
+        options={{ 
+          drawerIcon: ({ color}) => ( 
+            <Icon name='address-card' type='font-awesome' size={24} color={color} /> 
           ) 
         }}
       />
