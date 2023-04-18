@@ -12,58 +12,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 //practica 6
 import Contacto from './ContactoComponent'
 import Quienes from './QuienesComponent'
-//practica 7
-import { StyleSheet, Image, Text } from 'react-native'; 
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import { Icon } from '@rneui/themed';
-import { SafeAreaView} from 'react-native-safe-area-context';
 
 
 const Stack = createNativeStackNavigator(); //practica 4
 const Drawer = createDrawerNavigator(); //practica 5
-const styles = StyleSheet.create({ //practica 7
-  container: { 
-    flex: 1, 
-  },
-  drawerHeader: {
-    backgroundColor: '#015afc',
-    height: 100, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    flex: 1, 
-    flexDirection: 'row' 
-  },
-  drawerHeaderText: {
-    color: 'white', 
-    fontSize: 24, 
-    fontWeight: 'bold' 
-  },
-  drawerImage: {
-    margin: 10,
-    width: 80, 
-    height: 60 
-  } 
-});
 
 
-function CustomDrawerContent(props) { //practica 7
-  return ( 
-    <DrawerContentScrollView {...props}> 
-      <SafeAreaView style={styles.container} edges={['top']}>
-        <View style={styles.drawerHeader}> 
-          <View style={{flex:1}}>
-            <Image source={require('./imagenes/logo.png')} style={styles.drawerImage} /> 
-          </View> 
-          <View style={{flex: 2}}> 
-            <Text style={styles.drawerHeaderText}> Gaztaroa</Text> 
-          </View> 
-        </View> 
-        <DrawerItemList {...props} /> 
-      </SafeAreaView> 
-    </DrawerContentScrollView> 
-  ); 
-}
-      
 function CalendarioNavegador() {
   return (
     <Stack.Navigator
@@ -163,31 +117,28 @@ function QuienesNavegador(){
 function DrawerNavegador() {
   return (
     <Drawer.Navigator
-      initialRouteName="Home" 
-      drawerContent={props => <CustomDrawerContent {...props} />} 
-      screenOptions={{ headerShown: false, drawerStyle: {
-         backgroundColor: '#c2d3da', 
-        },
-      }}
+    initialRouteName=" Drawer"
+    screenOptions={{
+      headerShown: false,
+      drawerStyle: {
+        backgroundColor: '#c2d3da',
+      },
+    }}
     >
-      <Drawer.Screen name="Campo base" component={HomeNavegador} 
-        options={{ 
-          drawerIcon: ({ tintColor}) => ( 
-            <Icon name='home' type='font-awesome' size={24} color={tintColor} /> 
-          ) 
-        }}
-      />
-     
-      <Drawer.Screen name="Quienes somos" component={QuienesNavegador} />  
-      <Drawer.Screen name="Home" component={HomeNavegador} />
-      <Drawer.Screen name="Calendario" component={CalendarioNavegador} />
-      <Drawer.Screen name="Contacto" component={ContactoNavegador} />
+    <Drawer.Screen name="Quienes somos" component={QuienesNavegador} />  
+    <Drawer.Screen name="Home" component={HomeNavegador} />
+    <Drawer.Screen name="Calendario" component={CalendarioNavegador} />
+    <Drawer.Screen name="Contacto" component={ContactoNavegador} />
     </Drawer.Navigator>
   );
 }
 
 
 /////////////////////////////////////
+
+
+
+
 class Campobase extends Component {
   render() {
     return (
