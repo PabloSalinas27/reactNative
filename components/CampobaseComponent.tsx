@@ -199,10 +199,7 @@ function DrawerNavegador() {
         }}
       />
      
-      <Drawer.Screen name="Quienes somos" component={QuienesNavegador} />  
-      <Drawer.Screen name="Home" component={HomeNavegador} />
-      <Drawer.Screen name="Calendario" component={CalendarioNavegador} />
-      <Drawer.Screen name="Contacto" component={ContactoNavegador} />
+      
     </Drawer.Navigator>
   );
 }
