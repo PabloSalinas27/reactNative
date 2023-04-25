@@ -1,10 +1,10 @@
 import React from "react";
 import { ListItem, Avatar } from "@rneui/themed";
 import { SafeAreaView, FlatList } from "react-native";
-import { EXCURSIONES } from "./comun/excursiones";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import { baseUrl } from "./comun/comun";
+import { useAppSelector } from "../redux/hooks";
 
 type CalendarioProps = {
   navigation: StackNavigationProp<RootStackParamList, "Calendario">;
@@ -19,6 +19,7 @@ type Excursion = {
 };
 
 export default function Calendario({ navigation }: CalendarioProps) {
+  const excursiones = useAppSelector((state) => state.excursiones.excursiones);
   const renderCalendarioItem = ({
     item,
     index,
@@ -42,11 +43,10 @@ export default function Calendario({ navigation }: CalendarioProps) {
       </ListItem>
     );
   };
-
   return (
     <SafeAreaView>
       <FlatList
-        data={EXCURSIONES}
+        data={excursiones}
         renderItem={renderCalendarioItem}
         keyExtractor={(item) => item.id.toString()}
       />

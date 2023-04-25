@@ -1,10 +1,8 @@
 import React from "react";
 import { Text, ScrollView, View } from "react-native";
 import { Card } from "@rneui/themed";
-import { EXCURSIONES } from "./comun/excursiones";
-import { CABECERAS } from "./comun/cabeceras";
-import { ACTIVIDADES } from "./comun/actividades";
 import { baseUrl } from "./comun/comun";
+import { useAppSelector } from "../redux/hooks";
 
 interface Item {
     id: number;
@@ -30,16 +28,19 @@ function RenderItem({ item }: { item: Item }) {
 }
 
 export default function Home() {
+  const cabeceras = useAppSelector((state) => state.cabeceras.cabeceras);
+  const excursiones = useAppSelector((state) => state.excursiones.excursiones);
+  const actividades = useAppSelector((state) => state.actividades.actividades);
   return (
     <ScrollView>
       <RenderItem
-        item={CABECERAS.filter((cabecera) => cabecera.destacado)[0]}
+        item={cabeceras.filter((cabecera) => cabecera.destacado)[0]}
       />
       <RenderItem
-        item={EXCURSIONES.filter((excursion) => excursion.destacado)[0]}
+        item={excursiones.filter((excursion) => excursion.destacado)[0]}
       />
       <RenderItem
-        item={ACTIVIDADES.filter((actividad) => actividad.destacado)[0]}
+        item={actividades.filter((actividad) => actividad.destacado)[0]}
       />
     </ScrollView>
   );

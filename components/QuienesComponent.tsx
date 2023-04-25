@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, ScrollView } from "react-native";
 import { Card, CardProps } from "react-native-elements";
 //para la parte dea actividades
 import QuienesSomos from "./QuienesSomosComponent";
@@ -35,7 +34,7 @@ type QuienesProps = {
   navigation: StackNavigationProp<any, "Actividades">;
 };
 
-export default function Quienes({navigation}: QuienesProps) {
+export default function Quienes({ navigation }: QuienesProps) {
   return (
     <ScrollView>
       <Historia />

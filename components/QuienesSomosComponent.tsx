@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView } from "react-native";
 import { Card, CardProps } from "react-native-elements";
 //para la parte dea actividades
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ACTIVIDADES } from "./comun/actividades";
 import { ListItem, Avatar } from "@rneui/themed";
 import { SafeAreaView, FlatList } from "react-native";
 import { baseUrl } from "./comun/comun";
+import { useAppSelector } from "../redux/hooks";
 
 type Actividad = {
   id: number;
@@ -24,18 +23,11 @@ type ActividadesState = {
   actividades: Actividad[];
 };
 
-class QuienesSomos extends Component<ActividadesProps, ActividadesState> {
-  constructor(props: ActividadesProps) {
-    super(props);
-    this.state = {
-      actividades: ACTIVIDADES,
-    };
-  }
-  render() {
+export default function QuienesSomos ({ navigation }: ActividadesProps) {
     const cardProps: CardProps = {
       containerStyle: { margin: 0 },
     };
-    const { navigation } = this.props;
+    const actividades = useAppSelector((state) => state.actividades.actividades);
     const renderActividadesItem = ({
       item,
       index,
@@ -59,14 +51,12 @@ class QuienesSomos extends Component<ActividadesProps, ActividadesState> {
         <Card.Title>Actividades</Card.Title>
         <SafeAreaView>
           <FlatList
-            data={this.state.actividades}
+            data={actividades}
             renderItem={renderActividadesItem}
             keyExtractor={(item) => item.id.toString()}
           />
         </SafeAreaView>
       </Card>
     );
-  }
 }
 
-export default QuienesSomos;

@@ -1,4 +1,3 @@
-import React from "react";
 import Constants from "expo-constants";
 import Calendario from "./CalendarioComponent";
 import DetalleExcursion from "./DetalleExcursionComponent";
@@ -21,6 +20,8 @@ import {
 import { Icon } from "@rneui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colorGaztaroaClaro, colorGaztaroaOscuro } from "./comun/comun";
+import { useAppDispatch } from "../redux/hooks";
+import { fetchActividades, fetchCabeceras, fetchComentarios, fetchExcursiones } from "../redux/ActionCreators";
 
 const Stack = createNativeStackNavigator(); //practica 4
 const Drawer = createDrawerNavigator(); //practica 5
@@ -78,7 +79,7 @@ function CalendarioNavegador() {
       //headerMode="float"
       screenOptions={{
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: colorGaztaroaOscuro},
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
       }}
     >
@@ -108,7 +109,7 @@ function HomeNavegador() {
       screenOptions={{
         //headerMode: 'screen',
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: colorGaztaroaOscuro},
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
       }}
     >
@@ -131,7 +132,7 @@ function ContactoNavegador() {
       screenOptions={{
         //headerMode: 'screen',
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: colorGaztaroaOscuro},
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
       }}
     >
@@ -153,7 +154,7 @@ function QuienesNavegador() {
       screenOptions={{
         //headerMode: 'screen',
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: colorGaztaroaOscuro},
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
       }}
     >
@@ -228,9 +229,13 @@ function DrawerNavegador() {
     </Drawer.Navigator>
   );
 }
-
-/////////////////////////////////////
 export default function CampoBase() {
+  const dispatch = useAppDispatch();
+  fetchExcursiones()(dispatch);
+  fetchActividades()(dispatch);
+  fetchCabeceras()(dispatch);
+  fetchComentarios()(dispatch);
+
   return (
     <NavigationContainer>
       <View

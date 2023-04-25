@@ -1,5 +1,4 @@
-import React from "react";
-import { Text} from "react-native";
+import { Text } from "react-native";
 import { Card, CardProps } from "react-native-elements";
 
 export default function Contacto() {

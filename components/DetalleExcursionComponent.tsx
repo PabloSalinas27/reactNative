@@ -1,12 +1,11 @@
-import React, { Component, useState } from "react";
-import { Text, View, ScrollView, FlatList } from "react-native";
+import { useState } from "react";
+import { Text, View, ScrollView } from "react-native";
 import { Card, CardProps } from "react-native-elements";
-import { EXCURSIONES } from "./comun/excursiones";
-import { COMENTARIOS } from "./comun/comentarios";
 import { Icon } from "@rneui/themed";
 import { baseUrl } from "./comun/comun";
+import { useAppSelector } from "../redux/hooks";
 
-interface Excursion {
+export type Excursion = {
   id: number;
   nombre: string;
   imagen: string;
@@ -14,7 +13,7 @@ interface Excursion {
   descripcion: string;
 }
 
-interface Comentario {
+export type Comentario = {
   //practica7
   id: number;
   excursionId: number;
@@ -90,18 +89,20 @@ interface DetalleExcursionProps {
 }
 
 export default function DetalleExcursion(props: DetalleExcursionProps) {
+  const excursiones = useAppSelector((state) => state.excursiones.excursiones);
+  const comentarios = useAppSelector((state) => state.comentarios.comentarios);
   const [favoritos, setFavoritos] = useState([]);
   const { excursionId } = props.route.params;
   return (
     <ScrollView>
       <RenderExcursion
-        excursion={EXCURSIONES[excursionId]}
+        excursion={excursiones[excursionId]}
         favorita={favoritos.some((el) => el === excursionId)}
         onPress={() => setFavoritos([...favoritos, excursionId])}
       />
 
       <RenderComentario
-        comentarios={COMENTARIOS.filter(
+        comentarios={comentarios.filter(
           (comentario) => comentario.excursionId === excursionId
         )}
       />
