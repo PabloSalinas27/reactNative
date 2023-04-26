@@ -1,20 +1,31 @@
-import * as ActionTypes from './ActionTypes';
+import { createAction, createReducer } from "@reduxjs/toolkit";
+import { Excursion } from "../components/DetalleExcursionComponent";
+import { StateBase } from "./ActionTypes";
 
+export const excursionesLoading = createAction("EXCURSIONES_LOADING");
+export const addExcursiones = createAction<Excursion[]>("ADD_EXCURSIONES");
+export const excursionesFailed = createAction<string>("EXCURSIONES_FAILED");
 
-export const excursiones = (state = { isLoading: true,
-                                 errMess: null,
-                                 excursiones:[]}, action) => {
-    switch (action.type) {
-        case ActionTypes.ADD_EXCURSIONES:
-            return {...state, isLoading: false, errMess: null, excursiones: action.payload};
-
-        case ActionTypes.EXCURSIONES_LOADING:
-            return {...state, isLoading: true, errMess: null, excursiones: []};
-
-        case ActionTypes.EXCURSIONES_FAILED:
-            return {...state, isLoading: false, errMess: action.payload};
-
-        default:
-          return state;
-      }
+//Esto...
+const initialState = {
+  ...StateBase,
+  excursiones: [] as Excursion[],
 };
+
+export const excursiones = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addExcursiones, (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        errMess: null,
+        excursiones: action.payload,
+      };
+    })
+    .addCase(excursionesLoading, (state) => {
+      return { ...state, isLoading: true, errMess: null, excursiones: [] };
+    })
+    .addCase(excursionesFailed, (state, action) => {
+      return { ...state, isLoading: false, errMess: action.payload };
+    });
+});

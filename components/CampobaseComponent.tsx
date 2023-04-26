@@ -21,7 +21,13 @@ import { Icon } from "@rneui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colorGaztaroaClaro, colorGaztaroaOscuro } from "./comun/comun";
 import { useAppDispatch } from "../redux/hooks";
-import { fetchActividades, fetchCabeceras, fetchComentarios, fetchExcursiones } from "../redux/ActionCreators";
+import {
+  fetchActividades,
+  fetchCabeceras,
+  fetchComentarios,
+  fetchExcursiones,
+} from "../redux/ActionCreators";
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator(); //practica 4
 const Drawer = createDrawerNavigator(); //practica 5
@@ -204,7 +210,7 @@ function DrawerNavegador() {
         }}
       />
       <Drawer.Screen
-        name="Calendario"
+        name="Calendario " // El espacio es para que no se queje de que hay dos con el mismo nombre
         component={CalendarioNavegador}
         options={{
           drawerIcon: ({ color }) => (
@@ -231,10 +237,12 @@ function DrawerNavegador() {
 }
 export default function CampoBase() {
   const dispatch = useAppDispatch();
-  fetchExcursiones()(dispatch);
-  fetchActividades()(dispatch);
-  fetchCabeceras()(dispatch);
-  fetchComentarios()(dispatch);
+  useEffect(() => {
+    fetchExcursiones()(dispatch);
+    fetchActividades()(dispatch);
+    fetchCabeceras()(dispatch);
+    fetchComentarios()(dispatch);
+  }, [dispatch]);
 
   return (
     <NavigationContainer>

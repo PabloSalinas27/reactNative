@@ -11,7 +11,7 @@ export type Excursion = {
   imagen: string;
   destacado: boolean;
   descripcion: string;
-}
+};
 
 export type Comentario = {
   //practica7
@@ -21,10 +21,10 @@ export type Comentario = {
   comentario: string;
   autor: string;
   dia: string;
-}
+};
 
 interface RenderExcursionProps {
-  excursion: Excursion | null;
+  excursion: Excursion;
   favorita: boolean;
   onPress: () => void;
 }
@@ -91,7 +91,7 @@ interface DetalleExcursionProps {
 export default function DetalleExcursion(props: DetalleExcursionProps) {
   const excursiones = useAppSelector((state) => state.excursiones.excursiones);
   const comentarios = useAppSelector((state) => state.comentarios.comentarios);
-  const [favoritos, setFavoritos] = useState([]);
+  const [favoritos, setFavoritos] = useState<number[]>([]);
   const { excursionId } = props.route.params;
   return (
     <ScrollView>

@@ -1,19 +1,30 @@
-import * as ActionTypes from './ActionTypes';
+import { createAction, createReducer } from "@reduxjs/toolkit";
+import { Cabecera } from "../components/comun/cabeceras";
+import { StateBase } from "./ActionTypes";
 
-export const cabeceras = (state  = { isLoading: true,
-                                        errMess: null,
-                                        cabeceras:[]}, action) => {
-    switch (action.type) {
-        case ActionTypes.ADD_CABECERAS:
-        return {...state, isLoading: false, errMess: null, cabeceras: action.payload};
+export const cabecerasLoading = createAction<Cabecera[]>("CABECERA_LOADING");
+export const addCabeceras = createAction<Cabecera[]>("ADD_CABECERA");
+export const cabecerasFailed = createAction<string>("CABECERA_FAILED");
 
-        case ActionTypes.CABECERAS_LOADING:
-            return {...state, isLoading: true, errMess: null, cabeceras: []}
-
-        case ActionTypes.CABECERAS_FAILED:
-            return {...state, isLoading: false, errMess: action.payload};
-
-        default:
-          return state;
-      }
+const initialState = {
+  ...StateBase,
+  cabeceras: [] as Cabecera[],
 };
+
+export const cabeceras = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addCabeceras, (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        errMess: null,
+        cabeceras: action.payload,
+      };
+    })
+    .addCase(cabecerasLoading, (state) => {
+      return { ...state, isLoading: true, errMess: null, cabeceras: [] };
+    })
+    .addCase(cabecerasFailed, (state, action) => {
+      return { ...state, isLoading: false, errMess: action.payload };
+    });
+});

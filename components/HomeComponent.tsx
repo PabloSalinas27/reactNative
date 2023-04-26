@@ -5,11 +5,11 @@ import { baseUrl } from "./comun/comun";
 import { useAppSelector } from "../redux/hooks";
 
 interface Item {
-    id: number;
-    nombre: string;
-    imagen: string;
-    destacado: boolean;
-    descripcion: string;
+  id: number;
+  nombre: string;
+  imagen: string;
+  destacado: boolean;
+  descripcion: string;
 }
 
 function RenderItem({ item }: { item: Item }) {
@@ -18,7 +18,7 @@ function RenderItem({ item }: { item: Item }) {
       <Card>
         <Card.Title>{item.nombre}</Card.Title>
         <Card.Divider />
-        <Card.Image source={{uri: baseUrl + item.imagen}}></Card.Image>
+        <Card.Image source={{ uri: baseUrl + item.imagen }}></Card.Image>
         <Text style={{ margin: 20 }}>{item.descripcion}</Text>
       </Card>
     );

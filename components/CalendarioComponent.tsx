@@ -11,11 +11,11 @@ type CalendarioProps = {
 };
 
 type Excursion = {
-    id: number;
-    nombre: string;
-    imagen: string;
-    destacado: boolean;
-    descripcion: string;
+  id: number;
+  nombre: string;
+  imagen: string;
+  destacado: boolean;
+  descripcion: string;
 };
 
 export default function Calendario({ navigation }: CalendarioProps) {
@@ -35,10 +35,12 @@ export default function Calendario({ navigation }: CalendarioProps) {
         }
         bottomDivider
       >
-        <Avatar source={{uri: baseUrl + item.imagen}} />
+        <Avatar source={{ uri: baseUrl + item.imagen }} />
         <ListItem.Content>
           <ListItem.Title>{item.nombre}</ListItem.Title>
-          <ListItem.Subtitle>{baseUrl + item.imagen + item.descripcion }</ListItem.Subtitle>
+          <ListItem.Subtitle>
+            {baseUrl + item.imagen + item.descripcion}
+          </ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     );
