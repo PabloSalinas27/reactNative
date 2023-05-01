@@ -1,4 +1,3 @@
-import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../components/comun/comun";
 import { AppDispatch } from "./configureStore";
 import { addComentarios, comentariosFailed } from "./comentarios";

@@ -1,4 +1,3 @@
-import React from "react";
 import { ListItem, Avatar } from "@rneui/themed";
 import { SafeAreaView, FlatList } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";

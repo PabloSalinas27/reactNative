@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, ScrollView, View } from "react-native";
 import { Card } from "@rneui/themed";
 import { baseUrl } from "./comun/comun";

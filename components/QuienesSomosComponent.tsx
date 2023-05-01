@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { Card, CardProps } from "react-native-elements";
 //para la parte dea actividades
 import { StackNavigationProp } from "@react-navigation/stack";
