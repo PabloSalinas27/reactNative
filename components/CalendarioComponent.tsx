@@ -5,6 +5,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import { baseUrl } from "./comun/comun";
 import { useAppSelector } from "../redux/hooks";
+import { Text, View } from "react-native";
+import {IndicadorActividad } from "./IndicadorActividadComponent"
 
 type CalendarioProps = {
   navigation: StackNavigationProp<RootStackParamList, "Calendario">;
@@ -19,7 +21,7 @@ type Excursion = {
 };
 
 export default function Calendario({ navigation }: CalendarioProps) {
-  const excursiones = useAppSelector((state) => state.excursiones.excursiones);
+  const excursiones = useAppSelector((state) => state.excursiones);
   const renderCalendarioItem = ({
     item,
     index,
@@ -45,13 +47,35 @@ export default function Calendario({ navigation }: CalendarioProps) {
       </ListItem>
     );
   };
-  return (
-    <SafeAreaView>
-      <FlatList
-        data={excursiones}
-        renderItem={renderCalendarioItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </SafeAreaView>
-  );
+  if (excursiones){
+      if(excursiones.isLoading){
+        return(
+          <IndicadorActividad />
+        );
+      }
+      else if (excursiones.errMess){
+        return(
+          <View>
+            <Text>{excursiones.errMess}</Text>
+          </View>
+        );
+
+      }
+      else{
+        return (
+          <SafeAreaView>
+            <FlatList
+              data={excursiones.excursiones}
+              renderItem={renderCalendarioItem}
+              keyExtractor={(item) => item.id.toString()}
+            />
+          </SafeAreaView>
+        );
+
+      }
+
+  }else{
+
+  }
+  
 }

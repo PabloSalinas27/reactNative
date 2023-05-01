@@ -4,6 +4,9 @@ import { Card, CardProps } from "react-native-elements";
 import { Icon } from "@rneui/themed";
 import { baseUrl } from "./comun/comun";
 import { useAppSelector } from "../redux/hooks";
+import { postFavorito, addFavorito} from "../redux/ActionCreators";
+import { useEffect } from "react";
+import { useAppDispatch } from "../redux/hooks";
 
 export type Excursion = {
   id: number;
@@ -71,6 +74,7 @@ function RenderExcursion(props: RenderExcursionProps) {
             props.favorita
               ? console.log("La excursión ya se encuentra entre las favoritas")
               : props.onPress()
+              
           }
         />
       </View>
@@ -91,14 +95,19 @@ interface DetalleExcursionProps {
 export default function DetalleExcursion(props: DetalleExcursionProps) {
   const excursiones = useAppSelector((state) => state.excursiones.excursiones);
   const comentarios = useAppSelector((state) => state.comentarios.comentarios);
-  const [favoritos, setFavoritos] = useState<number[]>([]);
+  const favoritos = useAppSelector((state) => state.favoritos.favoritos);
   const { excursionId } = props.route.params;
+  console.log(favoritos)
+  const dispatch = useAppDispatch();
+
   return (
     <ScrollView>
       <RenderExcursion
         excursion={excursiones[excursionId]}
         favorita={favoritos.some((el) => el === excursionId)}
-        onPress={() => setFavoritos([...favoritos, excursionId])}
+        onPress={() => {
+          postFavorito(excursionId)(dispatch);
+        }}
       />
 
       <RenderComentario

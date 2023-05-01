@@ -4,6 +4,7 @@ import { excursiones } from "./excursiones";
 import { comentarios } from "./comentarios";
 import { cabeceras } from "./cabeceras";
 import { actividades } from "./actividades";
+import {favoritos} from "./favoritos"
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     comentarios: comentarios,
     cabeceras: cabeceras,
     actividades: actividades,
+    favoritos: favoritos,
   },
   middleware: [thunk],
 });
