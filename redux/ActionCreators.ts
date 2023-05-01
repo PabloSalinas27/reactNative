@@ -13,6 +13,11 @@ import {
   addActividades,
 } from "./actividades";
 
+import {
+  addfavorito,
+  postfavorito 
+} from "./favoritos"
+
 type ApiError = Error & { response?: Response };
 
 export const fetchComentarios = () => (dispatch: AppDispatch) => {
@@ -115,4 +120,18 @@ export const fetchActividades = () => (dispatch: AppDispatch) => {
     .then((response) => response.json())
     .then((actividades) => dispatch(addActividades(actividades)))
     .catch((error) => dispatch(actividadesFailed(error.message)));
+};
+
+
+export const postFavorito = (excursionId) => (dispatch) => {
+  //console.log("esto es post")
+  //console.log(excursionId)
+  setTimeout(() => {
+    dispatch(addFavorito(excursionId));
+  }, 2000);
+ };
+ export const addFavorito = (excursionId) => (dispatch: AppDispatch) => {
+  //console.log("esto es add")
+  //console.log(excursionId)
+  dispatch(addfavorito(excursionId));
 };
