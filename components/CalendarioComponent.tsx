@@ -40,7 +40,7 @@ export default function Calendario({ navigation }: CalendarioProps) {
         <ListItem.Content>
           <ListItem.Title>{item.nombre}</ListItem.Title>
           <ListItem.Subtitle>
-            {baseUrl + item.imagen + item.descripcion}
+            {item.descripcion}
           </ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>

@@ -3,7 +3,7 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { StateBase } from "./ActionTypes";
 
 
-export const addfavorito = createAction<number>("ADD_FAVORITO");
+export const addFavorito = createAction<number>("ADD_FAVORITO");
 export const postfavorito = createAction<number>("POST_FAVORITO");
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 
   export const favoritos = createReducer(initialState, (builder) => {
     builder
-      .addCase(addfavorito, (state, action) => {
+      .addCase(addFavorito, (state, action) => {
  
         return {
           ...state,

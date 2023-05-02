@@ -1,6 +1,10 @@
 import { baseUrl } from "../components/comun/comun";
 import { AppDispatch } from "./configureStore";
-import { addComentarios, comentariosFailed } from "./comentarios";
+import {
+  addComentarios,
+  addComentario,
+  comentariosFailed,
+} from "./comentarios";
 import {
   addExcursiones,
   excursionesFailed,
@@ -13,14 +17,12 @@ import {
   addActividades,
 } from "./actividades";
 
-import {
-  addfavorito,
-  postfavorito 
-} from "./favoritos"
+import { addFavorito } from "./favoritos";
+import { Comentario } from "../components/DetalleExcursionComponent";
 
 type ApiError = Error & { response?: Response };
 
-export const fetchComentarios = () => (dispatch: AppDispatch) => {
+export const fetchComentarios = (dispatch: AppDispatch) => {
   return fetch(baseUrl + "comentarios")
     .then(
       (response) => {
@@ -44,7 +46,7 @@ export const fetchComentarios = () => (dispatch: AppDispatch) => {
     .catch((error) => dispatch(comentariosFailed(error.message)));
 };
 
-export const fetchExcursiones = () => (dispatch: AppDispatch) => {
+export const fetchExcursiones = (dispatch: AppDispatch) => {
   dispatch(excursionesLoading());
 
   return fetch(baseUrl + "excursiones")
@@ -70,7 +72,7 @@ export const fetchExcursiones = () => (dispatch: AppDispatch) => {
     .catch((error) => dispatch(excursionesFailed(error.message)));
 };
 
-export const fetchCabeceras = () => (dispatch: AppDispatch) => {
+export const fetchCabeceras = (dispatch: AppDispatch, getstate) => {
   dispatch(cabecerasLoading());
 
   return fetch(baseUrl + "cabeceras")
@@ -96,7 +98,7 @@ export const fetchCabeceras = () => (dispatch: AppDispatch) => {
     .catch((error) => dispatch(cabecerasFailed(error.message)));
 };
 
-export const fetchActividades = () => (dispatch: AppDispatch) => {
+export const fetchActividades = (dispatch: AppDispatch) => {
   dispatch(actividadesLoading());
 
   return fetch(baseUrl + "actividades")
@@ -122,16 +124,15 @@ export const fetchActividades = () => (dispatch: AppDispatch) => {
     .catch((error) => dispatch(actividadesFailed(error.message)));
 };
 
-
-export const postFavorito = (excursionId) => (dispatch) => {
-  //console.log("esto es post")
-  //console.log(excursionId)
+export const postFavorito = (excursionId) => (dispatch: AppDispatch) => {
   setTimeout(() => {
     dispatch(addFavorito(excursionId));
   }, 2000);
- };
- export const addFavorito = (excursionId) => (dispatch: AppDispatch) => {
-  //console.log("esto es add")
-  //console.log(excursionId)
-  dispatch(addfavorito(excursionId));
 };
+export const postComentario =
+  (comentario: Omit<Comentario, "dia" | "id">) => (dispatch: AppDispatch) => {
+    setTimeout(() => {
+      dispatch(addComentario({ ...comentario, dia: new Date().toISOString() })
+      );
+    }, 2000);
+  };

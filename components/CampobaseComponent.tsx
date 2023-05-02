@@ -236,13 +236,12 @@ function DrawerNavegador() {
   );
 }
 export default function CampoBase() {
-  const dispatch = useAppDispatch();
   useEffect(() => {
-    fetchExcursiones()(dispatch);
-    fetchActividades()(dispatch);
-    fetchCabeceras()(dispatch);
-    fetchComentarios()(dispatch);
-  }, [dispatch]);
+    useAppDispatch(fetchExcursiones);
+    useAppDispatch(fetchCabeceras);
+    useAppDispatch(fetchActividades);
+    useAppDispatch(fetchComentarios);
+  }, [useAppDispatch]);
 
   return (
     <NavigationContainer>

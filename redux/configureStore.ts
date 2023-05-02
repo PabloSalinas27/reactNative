@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
 import { excursiones } from "./excursiones";
 import { comentarios } from "./comentarios";
 import { cabeceras } from "./cabeceras";
@@ -14,8 +13,8 @@ export const store = configureStore({
     actividades: actividades,
     favoritos: favoritos,
   },
-  middleware: [thunk],
 });
+
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
